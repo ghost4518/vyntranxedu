@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vyntrax — JEE Preparation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14;
+    --bg-raised:#12161F;
+    --bg-card:#161B26;
+    --line:#232A38;
+    --text:#E7EAF0;
+    --text-dim:#8993A6;
+    --amber:#FFB020;
+    --amber-dim:#8A6420;
+    --teal:#3ABEC9;
+    --physics:#3E7CB1;
+    --chem:#2FA36B;
+    --maths:#C97C3D;
+    --danger:#E5566D;
+    --radius:14px;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+    --font-gu:'Noto Sans Gujarati', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.55;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body.lang-gu{font-family:var(--font-gu);}
+  body.lang-gu h1, body.lang-gu h2, body.lang-gu h3, body.lang-gu .brand{font-family:var(--font-gu);}
+
+  /* OMR bubble texture backdrop */
+  .omr-field{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image: radial-gradient(circle, #1B2130 1.4px, transparent 1.6px);
+    background-size: 26px 26px;
+    opacity:.5;
+    mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 40%, transparent 85%);
+  }
+
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit; cursor:pointer;}
+  input{font-family:inherit;}
+
+  .wrap{max-width:1120px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,14,20,.86); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    max-width:1120px; margin:0 auto; padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:18px;
+  }
+  .brand{
+    font-family:var(--font-display); font-weight:700; font-size:22px;
+    display:flex; align-items:center; gap:9px; letter-spacing:.2px;
+  }
+  .brand .mark{
+    width:26px; height:26px; border-radius:50%;
+    background: conic-gradient(from 200deg, var(--amber), var(--teal), var(--physics), var(--amber));
+    display:inline-block; position:relative;
+  }
+  .brand .mark::after{
+    content:""; position:absolute; inset:6px; border-radius:50%; background:var(--bg);
+  }
+  .navlinks{display:flex; gap:22px; align-items:center; flex-wrap:wrap;}
+  .navlinks a{font-size:14.5px; color:var(--text-dim); font-weight:500; transition:color .15s;}
+  .navlinks a:hover{color:var(--text);}
+  .nav-right{display:flex; align-items:center; gap:10px;}
+
+  .lang-toggle{
+    display:flex; border:1px solid var(--line); border-radius:20px; overflow:hidden; font-size:12.5px;
+  }
+  .lang-toggle button{
+    padding:6px 12px; background:transparent; border:none; color:var(--text-dim); font-weight:600;
+  }
+  .lang-toggle button.active{background:var(--amber); color:#1a1200;}
+
+  .btn{
+    padding:9px 16px; border-radius:9px; border:1px solid var(--line);
+    background:var(--bg-raised); color:var(--text); font-size:14px; font-weight:600;
+    transition: transform .12s, border-color .12s;
+  }
+  .btn:hover{border-color:#3a4256; transform:translateY(-1px);}
+  .btn-primary{background:var(--amber); color:#1a1200; border-color:var(--amber);}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-ghost{background:transparent;}
+  .btn-sm{padding:6px 12px; font-size:13px;}
+
+  .userchip{display:flex; align-items:center; gap:8px; font-size:13.5px; color:var(--text-dim);}
+  .userchip b{color:var(--text);}
+
+  /* HERO */
+  .hero{padding:86px 0 60px; position:relative;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono);
+    font-size:12px; color:var(--teal); border:1px solid #1c3a3d; background:#0e1c1e;
+    padding:5px 12px; border-radius:20px; margin-bottom:22px; letter-spacing:.4px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--teal); animation:pulse 1.6s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.25;}}
+  h1.hero-title{
+    font-family:var(--font-display); font-weight:700;
+    font-size:clamp(34px, 5.2vw, 60px); line-height:1.06; letter-spacing:-.5px; max-width:820px;
+  }
+  h1.hero-title .accent{color:var(--amber);}
+  .hero-sub{
+    margin-top:20px; font-size:17px; color:var(--text-dim); max-width:560px;
+  }
+  .hero-actions{display:flex; gap:12px; margin-top:32px; flex-wrap:wrap;}
+
+  .omr-hero{
+    margin-top:56px; border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--bg-card); padding:22px 24px; display:grid; grid-template-columns:repeat(4,1fr); gap:18px;
+  }
+  .stat b{font-family:var(--font-mono); font-size:26px; display:block; color:var(--amber);}
+  .stat span{font-size:12.5px; color:var(--text-dim);}
+
+  /* SECTIONS */
+  section{padding:70px 0;}
+  .section-head{margin-bottom:34px;}
+  .section-head .kicker{font-family:var(--font-mono); font-size:12px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase;}
+  .section-head h2{font-family:var(--font-display); font-size:clamp(26px,3.4vw,36px); margin-top:8px; font-weight:700;}
+  .section-head p{color:var(--text-dim); margin-top:10px; max-width:600px;}
+
+  .subject-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px;}
+  .subj-card{
+    border:1px solid var(--line); border-radius:var(--radius); background:var(--bg-card);
+    padding:26px; position:relative; overflow:hidden; transition:transform .15s, border-color .15s;
+  }
+  .subj-card:hover{transform:translateY(-3px); border-color:#333c4e;}
+  .subj-card .bar{position:absolute; top:0; left:0; right:0; height:4px;}
+  .subj-card.physics .bar{background:var(--physics);}
+  .subj-card.chem .bar{background:var(--chem);}
+  .subj-card.maths .bar{background:var(--maths);}
+  .subj-card h3{font-family:var(--font-display); font-size:20px; margin-bottom:6px;}
+  .subj-card p.desc{color:var(--text-dim); font-size:14px; margin-bottom:16px;}
+  .chapter-list{display:flex; flex-direction:column; gap:0; border-top:1px solid var(--line);}
+  .chapter-list li{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 0; border-bottom:1px solid var(--line); font-size:13.5px;
+  }
+  .chapter-list li .src{font-family:var(--font-mono); font-size:10.5px; color:var(--text-dim); background:var(--bg-raised); border:1px solid var(--line); padding:2px 6px; border-radius:5px;}
+  .subj-card .cta-row{margin-top:18px; display:flex; gap:10px;}
+
+  /* FEATURE ROWS */
+  .feature-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;}
+  .feature{
+    border:1px solid var(--line); border-radius:var(--radius); padding:22px; background:var(--bg-raised);
+  }
+  .feature .num{font-family:var(--font-mono); color:var(--amber); font-size:13px;}
+  .feature h4{font-family:var(--font-display); margin:10px 0 8px; font-size:17px;}
+  .feature p{color:var(--text-dim); font-size:13.5px;}
+
+  .badge{
+    display:inline-block; font-family:var(--font-mono); font-size:10.5px; padding:3px 8px;
+    border-radius:6px; border:1px solid #3a2e10; background:#20180a; color:var(--amber); margin-bottom:10px;
+  }
+
+  /* TEST / ADAPTIVE */
+  .adaptive-box{
+    border:1px solid var(--line); border-radius:var(--radius); background:var(--bg-card);
+    padding:30px; display:grid; grid-template-columns:1.1fr .9fr; gap:30px; align-items:center;
+  }
+  @media(max-width:800px){.adaptive-box{grid-template-columns:1fr;}}
+  .level-chips{display:flex; gap:8px; margin-top:16px; flex-wrap:wrap;}
+  .level-chips span{
+    font-family:var(--font-mono); font-size:11.5px; padding:5px 10px; border-radius:20px;
+    border:1px solid var(--line); color:var(--text-dim);
+  }
+  .omr-mini{display:grid; grid-template-columns:repeat(5,1fr); gap:10px;}
+  .omr-mini .row{display:flex; gap:6px; justify-content:center;}
+  .omr-mini .bub{width:16px; height:16px; border-radius:50%; border:1.6px solid #364057;}
+  .omr-mini .bub.filled{background:var(--amber); border-color:var(--amber);}
+
+  /* PYQ */
+  .pyq-tabs{display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap;}
+  .pyq-tabs button{
+    padding:7px 14px; border-radius:8px; border:1px solid var(--line); background:var(--bg-raised);
+    color:var(--text-dim); font-size:13px; font-weight:600;
+  }
+  .pyq-tabs button.active{background:var(--amber); color:#1a1200; border-color:var(--amber);}
+  .pyq-list{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px;}
+  .pyq-item{border:1px solid var(--line); border-radius:10px; padding:16px; background:var(--bg-card);}
+  .pyq-item .yr{font-family:var(--font-mono); color:var(--teal); font-size:12px;}
+  .pyq-item h5{margin-top:6px; font-size:14.5px; font-family:var(--font-display);}
+  .pyq-item p{font-size:12.5px; color:var(--text-dim); margin-top:5px;}
+
+  /* HELP */
+  .help-box{
+    border:1px solid var(--line); border-radius:var(--radius); background:var(--bg-card); padding:30px;
+    display:grid; grid-template-columns:1fr 1fr; gap:30px;
+  }
+  @media(max-width:760px){.help-box{grid-template-columns:1fr;}}
+  .field{margin-bottom:14px;}
+  .field label{font-size:12.5px; color:var(--text-dim); display:block; margin-bottom:6px;}
+  .field input, .field textarea{
+    width:100%; background:var(--bg-raised); border:1px solid var(--line); border-radius:8px;
+    padding:10px 12px; color:var(--text); font-size:14px;
+  }
+  .field textarea{resize:vertical; min-height:90px;}
+
+  footer{border-top:1px solid var(--line); padding:34px 0; color:var(--text-dim); font-size:13px;}
+  footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  .admin-link{opacity:.55; font-size:11.5px;}
+
+  /* MODAL */
+  .overlay{
+    position:fixed; inset:0; background:rgba(5,6,10,.7); backdrop-filter:blur(3px);
+    display:none; align-items:center; justify-content:center; z-index:100; padding:20px;
+  }
+  .overlay.open{display:flex;}
+  .modal{
+    width:100%; max-width:380px; background:var(--bg-card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:28px; position:relative;
+  }
+  .modal h3{font-family:var(--font-display); font-size:20px; margin-bottom:4px;}
+  .modal p.sub{font-size:13px; color:var(--text-dim); margin-bottom:20px;}
+  .modal .close{position:absolute; top:16px; right:18px; color:var(--text-dim); font-size:18px; background:none; border:none;}
+  .modal-switch{font-size:13px; color:var(--text-dim); margin-top:14px; text-align:center;}
+  .modal-switch a{color:var(--teal); font-weight:600;}
+  .form-msg{font-size:12.5px; padding:8px 10px; border-radius:7px; margin-bottom:12px; display:none;}
+  .form-msg.error{display:block; background:#2a1116; color:var(--danger); border:1px solid #4a1b23;}
+  .form-msg.ok{display:block; background:#0f2418; color:#4ADE80; border:1px solid #1c4430;}
+
+  .toast{
+    position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--bg-card); border:1px solid var(--line); padding:12px 20px; border-radius:10px;
+    font-size:13.5px; opacity:0; transition:.25s; z-index:200; pointer-events:none;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  .lock-note{font-size:12px; color:var(--text-dim); margin-top:10px; display:flex; gap:6px; align-items:center;}
+
+  [data-i18n]{}
+  .hide{display:none !important;}
+
+  .admin-table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  .admin-table th, .admin-table td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line);}
+  .admin-table th{color:var(--text-dim); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.4px;}
+  .admin-panel{max-width:760px; margin:60px auto; padding:0 20px;}
+  .admin-card{border:1px solid var(--line); background:var(--bg-card); border-radius:var(--radius); padding:24px; margin-bottom:20px;}
+</style>
+</head>
+<body>
+
+<div class="omr-field"></div>
+
+<header>
+  <nav>
+    <div class="brand"><span class="mark"></span>Vyntrax</div>
+    <ul class="navlinks">
+      <li><a href="#home" data-i18n="nav_home">Home</a></li>
+      <li><a href="#physics" data-i18n="nav_physics">Physics</a></li>
+      <li><a href="#chemistry" data-i18n="nav_chem">Chemistry</a></li>
+      <li><a href="#maths" data-i18n="nav_maths">Maths</a></li>
+      <li><a href="#test" data-i18n="nav_test">Test</a></li>
+      <li><a href="#pyq" data-i18n="nav_pyq">PYQ</a></li>
+      <li><a href="#help" data-i18n="nav_help">Help</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button id="lang-en" class="active" onclick="setLang('en')">EN</button>
+        <button id="lang-gu" onclick="setLang('gu')">ગુ</button>
+      </div>
+      <div id="auth-area"></div>
+    </div>
+  </nav>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow"><span class="dot"></span><span data-i18n="eyebrow">JEE MAIN &amp; ADVANCED · 2027 AIM</span></div>
+      <h1 class="hero-title" data-i18n="hero_title">Fill the right circle,<br> every <span class="accent">single time.</span></h1>
+      <p class="hero-sub" data-i18n="hero_sub">Vyntrax is a chapter-wise prep desk for Physics, Chemistry and Maths — built around HC Verma, MS Chauhan and Anand Sir's approach, adaptive tests that read your level, and every board + JEE PYQ in one place.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="openAuth('signup')" data-i18n="cta_start">Create free account</button>
+        <a class="btn btn-ghost" href="#test" data-i18n="cta_test">Try an adaptive test</a>
+      </div>
+
+      <div class="omr-hero">
+        <div class="stat"><b>3</b><span data-i18n="stat_subjects">Subjects covered</span></div>
+        <div class="stat"><b>120+</b><span data-i18n="stat_chapters">Chapters mapped</span></div>
+        <div class="stat"><b>EN / ગુ</b><span data-i18n="stat_lang">Language support</span></div>
+        <div class="stat"><b>Adaptive</b><span data-i18n="stat_engine">Test engine</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUBJECT SECTIONS -->
+  <section id="physics">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker" data-i18n="k_physics">01 · Physics</div>
+        <h2 data-i18n="h_physics">Physics, chapter by chapter</h2>
+        <p data-i18n="p_physics">Summaries built strictly around HC Verma's problem sets and explanations. Sign in to unlock full notes, formula sheets and practice sets per chapter.</p>
+      </div>
+      <div class="subject-grid" id="physics-grid"></div>
+    </div>
+  </section>
+
+  <section id="chemistry">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker" data-i18n="k_chem">02 · Chemistry</div>
+        <h2 data-i18n="h_chem">Chemistry, chapter by chapter</h2>
+        <p data-i18n="p_chem">Every chapter — Organic, Physical and Inorganic — distilled strictly the way MS Chauhan drills them.</p>
+      </div>
+      <div class="subject-grid" id="chem-grid"></div>
+    </div>
+  </section>
+
+  <section id="maths">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker" data-i18n="k_maths">03 · Mathematics</div>
+        <h2 data-i18n="h_maths">Maths, chapter by chapter</h2>
+        <p data-i18n="p_maths">Algebra to Calculus, taught strictly in Anand Sir's style, structured so each chapter builds on the last — with speed-solving shortcuts for the exam hall.</p>
+      </div>
+      <div class="subject-grid" id="maths-grid"></div>
+    </div>
+  </section>
+
+  <!-- ADAPTIVE TEST -->
+  <section id="test">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker" data-i18n="k_test">04 · Test yourself</div>
+        <h2 data-i18n="h_test">One test. Reads your level as you go.</h2>
+        <p data-i18n="p_test">Answer correctly and the next question steps up. Miss one and it steps down — so your score reflects where you actually stand, not just how many you attempted.</p>
+      </div>
+      <div class="adaptive-box">
+        <div>
+          <span class="badge" data-i18n="badge_adaptive">ADAPTIVE ENGINE</span>
+          <h3 style="font-family:var(--font-display); font-size:22px;" data-i18n="test_h">Difficulty follows you, question to question</h3>
+          <p style="color:var(--text-dim); font-size:14px; margin-top:10px;" data-i18n="test_p">Every subject has three tiers — Foundation, Core JEE, and Advanced Edge. Vyntrax starts you at Core and moves you up or down after each answer, then gives you a chapter-wise readiness score at the end.</p>
+          <div class="level-chips">
+            <span data-i18n="lvl_1">🟢 Foundation</span>
+            <span data-i18n="lvl_2">🟡 Core JEE</span>
+            <span data-i18n="lvl_3">🔴 Advanced Edge</span>
+          </div>
+          <div style="margin-top:22px;">
+            <button class="btn btn-primary" onclick="startTest()" data-i18n="cta_test_2">Sign in to start a test</button>
+          </div>
+          <p class="lock-note" id="test-lock-note" data-i18n="lock_note">🔒 Test scoring and history are saved to your account.</p>
+        </div>
+        <div class="omr-mini" id="omr-mini"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PYQ -->
+  <section id="pyq">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker" data-i18n="k_pyq">05 · Past papers</div>
+        <h2 data-i18n="h_pyq">PYQs — board exams &amp; JEE</h2>
+        <p data-i18n="p_pyq">Filter between your board exam archive and JEE Main/Advanced previous-year papers, sorted by chapter so revision stays targeted.</p>
+      </div>
+      <div class="pyq-tabs">
+        <button class="active" onclick="setPyqTab('jee', this)" data-i18n="tab_jee">JEE Main / Advanced</button>
+        <button onclick="setPyqTab('board', this)" data-i18n="tab_board">Board Exams</button>
+      </div>
+      <div class="pyq-list" id="pyq-list"></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker" data-i18n="k_why">Why Vyntrax</div>
+        <h2 data-i18n="h_why">Built the way toppers actually revise</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature"><div class="num">01</div><h4 data-i18n="f1_h">Source-mapped notes</h4><p data-i18n="f1_p">Every chapter tags which HC Verma, MS Chauhan or Anand Sir section it distills, so you know exactly where to go deeper.</p></div>
+        <div class="feature"><div class="num">02</div><h4 data-i18n="f2_h">Bilingual, end to end</h4><p data-i18n="f2_p">Switch the entire interface between English and Gujarati at any point — nothing is left half-translated.</p></div>
+        <div class="feature"><div class="num">03</div><h4 data-i18n="f3_h">Level-aware testing</h4><p data-i18n="f3_p">No fixed difficulty. The test engine adjusts to you, question by question, chapter by chapter.</p></div>
+        <div class="feature"><div class="num">04</div><h4 data-i18n="f4_h">One archive for PYQs</h4><p data-i18n="f4_p">Board papers and JEE papers, chapter-tagged, in a single searchable shelf.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HELP -->
+  <section id="help">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker" data-i18n="k_help">Get help</div>
+        <h2 data-i18n="h_help">Stuck on something? Tell us.</h2>
+        <p data-i18n="p_help">Questions about a chapter, a bug, or account access — this goes straight to the Vyntrax team.</p>
+      </div>
+      <div class="help-box">
+        <div>
+          <div class="field">
+            <label data-i18n="lbl_name">Your name</label>
+            <input id="help-name" placeholder="e.g. Aarav Patel">
+          </div>
+          <div class="field">
+            <label data-i18n="lbl_topic">Topic</label>
+            <input id="help-topic" placeholder="e.g. Login issue, Organic Chemistry doubt">
+          </div>
+          <div class="field">
+            <label data-i18n="lbl_msg">Message</label>
+            <textarea id="help-msg" placeholder="Describe what you need help with..."></textarea>
+          </div>
+          <div class="form-msg" id="help-form-msg"></div>
+          <button class="btn btn-primary" onclick="submitHelp()" data-i18n="cta_send">Send message</button>
+        </div>
+        <div>
+          <div class="feature" style="background:var(--bg-raised);">
+            <h4 data-i18n="help_side_h">What happens next</h4>
+            <p data-i18n="help_side_p1" style="margin-top:8px;">Your message is logged for the Vyntrax admin team to review.</p>
+            <p data-i18n="help_side_p2" style="margin-top:8px;">For urgent chapter or test issues, mention the subject and chapter name so we can route it faster.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Vyntrax · <span data-i18n="footer_line">Built for JEE aspirants</span></div>
+    <div class="admin-link"><a href="#" onclick="openAdmin(event)">Admin</a></div>
+  </div>
+</footer>
+
+<!-- AUTH MODAL -->
+<div class="overlay" id="auth-overlay">
+  <div class="modal">
+    <button class="close" onclick="closeAuth()">✕</button>
+    <div id="auth-signup">
+      <h3 data-i18n="signup_h">Create your account</h3>
+      <p class="sub" data-i18n="signup_sub">Just a name and a password — nothing else.</p>
+      <div class="form-msg" id="signup-msg"></div>
+      <div class="field">
+        <label data-i18n="lbl_name2">Name</label>
+        <input id="signup-name" placeholder="e.g. Aarav Patel">
+      </div>
+      <div class="field">
+        <label data-i18n="lbl_pass">Password</label>
+        <input id="signup-pass" type="password" placeholder="••••••••">
+      </div>
+      <button class="btn btn-primary" style="width:100%;" onclick="doSignup()" data-i18n="cta_create">Create account</button>
+      <p class="modal-switch" data-i18n="have_acct">Already have an account? <a onclick="showLogin()" data-i18n="login_link">Log in</a></p>
+    </div>
+    <div id="auth-login" class="hide">
+      <h3 data-i18n="login_h">Welcome back</h3>
+      <p class="sub" data-i18n="login_sub">Log in with your name and password.</p>
+      <div class="form-msg" id="login-msg"></div>
+      <div class="field">
+        <label data-i18n="lbl_name2">Name</label>
+        <input id="login-name" placeholder="e.g. Aarav Patel">
+      </div>
+      <div class="field">
+        <label data-i18n="lbl_pass">Password</label>
+        <input id="login-pass" type="password" placeholder="••••••••">
+      </div>
+      <button class="btn btn-primary" style="width:100%;" onclick="doLogin()" data-i18n="cta_login">Log in</button>
+      <p class="modal-switch" data-i18n="no_acct">New here? <a onclick="showSignup()" data-i18n="signup_link">Create an account</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="overlay" id="admin-overlay">
+  <div class="modal" style="max-width:640px;">
+    <button class="close" onclick="closeAdmin()">✕</button>
+    <div id="admin-gate">
+      <h3 data-i18n="admin_h">Admin access</h3>
+      <p class="sub" data-i18n="admin_sub">Log in with the admin account to view signups and help requests.</p>
+      <div class="form-msg" id="admin-msg"></div>
+      <div class="field">
+        <label data-i18n="admin_user_lbl">Admin username</label>
+        <input id="admin-user" placeholder="admin username">
+      </div>
+      <div class="field">
+        <label data-i18n="admin_pass_lbl">Admin password</label>
+        <input id="admin-pass" type="password" placeholder="••••••••">
+      </div>
+      <button class="btn btn-primary" style="width:100%;" onclick="checkAdmin()" data-i18n="admin_enter">Enter</button>
+    </div>
+    <div id="admin-view" class="hide">
+      <h3 data-i18n="admin_users_h">Signed-up aspirants</h3>
+      <div style="max-height:220px; overflow:auto; margin:12px 0 22px;">
+        <table class="admin-table" id="admin-users-table">
+          <thead><tr><th data-i18n="col_name">Name</th><th data-i18n="col_when">Joined</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <h3 data-i18n="admin_help_h">Help requests</h3>
+      <div style="max-height:220px; overflow:auto; margin-top:12px;">
+        <table class="admin-table" id="admin-help-table">
+          <thead><tr><th data-i18n="col_name">Name</th><th data-i18n="col_topic">Topic</th><th data-i18n="col_msg">Message</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------------- i18n ---------------- */
+const dict = {
+  en: {
+    nav_home:"Home", nav_physics:"Physics", nav_chem:"Chemistry", nav_maths:"Maths", nav_test:"Test", nav_pyq:"PYQ", nav_help:"Help",
+    eyebrow:"JEE MAIN & ADVANCED · 2027 AIM",
+    hero_title:'Fill the right circle,<br> every <span class="accent">single time.</span>',
+    hero_sub:"Vyntrax is a chapter-wise prep desk for Physics, Chemistry and Maths — built around HC Verma, MS Chauhan and Anand Sir's approach, adaptive tests that read your level, and every board + JEE PYQ in one place.",
+    cta_start:"Create free account", cta_test:"Try an adaptive test",
+    stat_subjects:"Subjects covered", stat_chapters:"Chapters mapped", stat_lang:"Language support", stat_engine:"Test engine",
+    k_physics:"01 · Physics", h_physics:"Physics, chapter by chapter", p_physics:"Summaries built around HC Verma's problem sets and Anand Sir's concept-first teaching style. Sign in to unlock full notes, formula sheets and practice sets per chapter.",
+    k_chem:"02 · Chemistry", h_chem:"Chemistry, chapter by chapter", p_chem:"Organic mechanisms distilled the way MS Chauhan drills them, plus Physical and Inorganic chapter maps with NCERT-aligned checkpoints.",
+    k_maths:"03 · Mathematics", h_maths:"Maths, chapter by chapter", p_maths:"Algebra to Calculus, structured so each chapter builds on the last — with speed-solving shortcuts for the exam hall.",
+    k_test:"04 · Test yourself", h_test:"One test. Reads your level as you go.", p_test:"Answer correctly and the next question steps up. Miss one and it steps down — so your score reflects where you actually stand, not just how many you attempted.",
+    badge_adaptive:"ADAPTIVE ENGINE", test_h:"Difficulty follows you, question to question",
+    test_p:"Every subject has three tiers — Foundation, Core JEE, and Advanced Edge. Vyntrax starts you at Core and moves you up or down after each answer, then gives you a chapter-wise readiness score at the end.",
+    lvl_1:"🟢 Foundation", lvl_2:"🟡 Core JEE", lvl_3:"🔴 Advanced Edge",
+    cta_test_2:"Sign in to start a test", lock_note:"🔒 Test scoring and history are saved to your account.",
+    k_pyq:"05 · Past papers", h_pyq:"PYQs — board exams & JEE", p_pyq:"Filter between your board exam archive and JEE Main/Advanced previous-year papers, sorted by chapter so revision stays targeted.",
+    tab_jee:"JEE Main / Advanced", tab_board:"Board Exams",
+    k_why:"Why Vyntrax", h_why:"Built the way toppers actually revise",
+    f1_h:"Source-mapped notes", f1_p:"Every chapter tags which HC Verma, MS Chauhan or Anand Sir section it distills, so you know exactly where to go deeper.",
+    f2_h:"Bilingual, end to end", f2_p:"Switch the entire interface between English and Gujarati at any point — nothing is left half-translated.",
+    f3_h:"Level-aware testing", f3_p:"No fixed difficulty. The test engine adjusts to you, question by question, chapter by chapter.",
+    f4_h:"One archive for PYQs", f4_p:"Board papers and JEE papers, chapter-tagged, in a single searchable shelf.",
+    k_help:"Get help", h_help:"Stuck on something? Tell us.", p_help:"Questions about a chapter, a bug, or account access — this goes straight to the Vyntrax team.",
+    lbl_name:"Your name", lbl_topic:"Topic", lbl_msg:"Message", cta_send:"Send message",
+    help_side_h:"What happens next", help_side_p1:"Your message is logged for the Vyntrax admin team to review.", help_side_p2:"For urgent chapter or test issues, mention the subject and chapter name so we can route it faster.",
+    footer_line:"Built for JEE aspirants",
+    signup_h:"Create your account", signup_sub:"Just a name and a password — nothing else.",
+    lbl_name2:"Name", lbl_pass:"Password", cta_create:"Create account",
+    have_acct:"Already have an account?", login_link:"Log in",
+    login_h:"Welcome back", login_sub:"Log in with your name and password.", cta_login:"Log in",
+    no_acct:"New here?", signup_link:"Create an account",
+    admin_h:"Admin access", admin_sub:"Log in with the admin account to view signups and help requests.",
+    admin_user_lbl:"Admin username", admin_pass_lbl:"Admin password", admin_enter:"Enter",
+    admin_users_h:"Signed-up aspirants", admin_help_h:"Help requests",
+    col_name:"Name", col_when:"Joined", col_topic:"Topic", col_msg:"Message",
+    unlock:"chapters unlock", locked_notes:"Sign in to view full notes"
+  },
+  gu: {
+    nav_home:"હોમ", nav_physics:"ફિઝિક્સ", nav_chem:"કેમિસ્ટ્રી", nav_maths:"મેથ્સ", nav_test:"ટેસ્ટ", nav_pyq:"PYQ", nav_help:"મદદ",
+    eyebrow:"JEE મેઈન અને એડવાન્સ્ડ · 2027 લક્ષ્ય",
+    hero_title:'સાચું ગોળ ભરો,<br> દરેક <span class="accent">વખતે.</span>',
+    hero_sub:"Vyntrax એ ફિઝિક્સ, કેમિસ્ટ્રી અને મેથ્સ માટે ચેપ્ટર-વાઈઝ તૈયારીનું પ્લેટફોર્મ છે — HC Verma, MS Chauhan અને આનંદ સરની પદ્ધતિ પર આધારિત, તમારું લેવલ સમજતી એડેપ્ટિવ ટેસ્ટ, અને બોર્ડ + JEE ના તમામ જૂના પ્રશ્નપત્રો એક જ જગ્યાએ.",
+    cta_start:"ફ્રી એકાઉન્ટ બનાવો", cta_test:"એડેપ્ટિવ ટેસ્ટ અજમાવો",
+    stat_subjects:"વિષયો આવરી લેવાયા", stat_chapters:"ચેપ્ટર્સ મેપ થયા", stat_lang:"ભાષા સપોર્ટ", stat_engine:"ટેસ્ટ એન્જિન",
+    k_physics:"૦૧ · ફિઝિક્સ", h_physics:"ફિઝિક્સ, પ્રકરણ પ્રમાણે", p_physics:"ફક્ત HC Verma ના પ્રશ્નો અને સમજૂતી પર આધારિત સારાંશ. સંપૂર્ણ નોટ્સ માટે લોગિન કરો.",
+    k_chem:"૦૨ · કેમિસ્ટ્રી", h_chem:"કેમિસ્ટ્રી, પ્રકરણ પ્રમાણે", p_chem:"ઓર્ગેનિક, ફિઝિકલ અને ઈનઓર્ગેનિક — દરેક ચેપ્ટર ફક્ત MS Chauhan ની રીતે તૈયાર કરેલ.",
+    k_maths:"૦૩ · ગણિત", h_maths:"મેથ્સ, પ્રકરણ પ્રમાણે", p_maths:"બીજગણિતથી કેલ્ક્યુલસ સુધી, ફક્ત આનંદ સરની સ્ટાઈલમાં, દરેક ચેપ્ટર આગળના પર બંધાય એ રીતે ગોઠવેલ — પરીક્ષા માટે ઝડપી શોર્ટકટ સાથે.",
+    k_test:"૦૪ · જાતે ટેસ્ટ આપો", h_test:"એક ટેસ્ટ. તમારું લેવલ સમજતી જાય છે.", p_test:"સાચો જવાબ આપો તો આગળનો પ્રશ્ન અઘરો થાય. ખોટો પડે તો સહેલો — એટલે તમારો સ્કોર ખરેખર તમારું લેવલ બતાવે છે.",
+    badge_adaptive:"એડેપ્ટિવ એન્જિન", test_h:"મુશ્કેલી તમારા જવાબ પ્રમાણે બદલાય છે",
+    test_p:"દરેક વિષયમાં ત્રણ સ્તર છે — ફાઉન્ડેશન, કોર JEE, અને એડવાન્સ્ડ એજ. Vyntrax તમને કોરથી શરૂ કરે છે અને દરેક જવાબ પછી સ્તર બદલે છે.",
+    lvl_1:"🟢 ફાઉન્ડેશન", lvl_2:"🟡 કોર JEE", lvl_3:"🔴 એડવાન્સ્ડ એજ",
+    cta_test_2:"ટેસ્ટ શરૂ કરવા લોગિન કરો", lock_note:"🔒 ટેસ્ટ સ્કોર અને હિસ્ટ્રી તમારા એકાઉન્ટમાં સેવ થાય છે.",
+    k_pyq:"૦૫ · જૂના પ્રશ્નપત્રો", h_pyq:"PYQ — બોર્ડ પરીક્ષા અને JEE", p_pyq:"બોર્ડ પરીક્ષા અને JEE ના જૂના પ્રશ્નપત્રો વચ્ચે ફિલ્ટર કરો, ચેપ્ટર પ્રમાણે ગોઠવેલ.",
+    tab_jee:"JEE મેઈન / એડવાન્સ્ડ", tab_board:"બોર્ડ પરીક્ષા",
+    k_why:"Vyntrax કેમ", h_why:"ટોપર્સ ખરેખર જે રીતે રિવિઝન કરે એ રીતે બનાવેલ",
+    f1_h:"સોર્સ-મેપ્ડ નોટ્સ", f1_p:"દરેક ચેપ્ટર જણાવે છે કે તે HC Verma, MS Chauhan કે આનંદ સરના કયા ભાગ પરથી લેવાયું છે.",
+    f2_h:"સંપૂર્ણ દ્વિભાષી", f2_p:"કોઈપણ સમયે આખું ઈન્ટરફેસ અંગ્રેજી અને ગુજરાતી વચ્ચે બદલો.",
+    f3_h:"લેવલ પ્રમાણે ટેસ્ટ", f3_p:"કોઈ ફિક્સ મુશ્કેલી નથી. ટેસ્ટ એન્જિન દરેક પ્રશ્ને તમારા પ્રમાણે બદલાય છે.",
+    f4_h:"PYQ માટે એક જ જગ્યા", f4_p:"બોર્ડ અને JEE ના પેપર, ચેપ્ટર પ્રમાણે ટેગ કરેલ, એક જ જગ્યાએ શોધી શકાય.",
+    k_help:"મદદ મેળવો", h_help:"કંઈક અટવાયું છે? અમને જણાવો.", p_help:"ચેપ્ટર વિશે પ્રશ્ન, બગ, કે એકાઉન્ટ સંબંધિત — સીધું Vyntrax ટીમને જાય છે.",
+    lbl_name:"તમારું નામ", lbl_topic:"વિષય", lbl_msg:"સંદેશ", cta_send:"સંદેશ મોકલો",
+    help_side_h:"આગળ શું થશે", help_side_p1:"તમારો સંદેશ Vyntrax એડમિન ટીમ માટે નોંધાય છે.", help_side_p2:"તાત્કાલિક સમસ્યા માટે વિષય અને ચેપ્ટરનું નામ જણાવો.",
+    footer_line:"JEE ઉમેદવારો માટે બનાવેલ",
+    signup_h:"એકાઉન્ટ બનાવો", signup_sub:"ફક્ત નામ અને પાસવર્ડ — બીજું કંઈ નહીં.",
+    lbl_name2:"નામ", lbl_pass:"પાસવર્ડ", cta_create:"એકાઉન્ટ બનાવો",
+    have_acct:"પહેલેથી એકાઉન્ટ છે?", login_link:"લોગિન કરો",
+    login_h:"પાછા સ્વાગત છે", login_sub:"તમારા નામ અને પાસવર્ડથી લોગિન કરો.", cta_login:"લોગિન",
+    no_acct:"નવા છો?", signup_link:"એકાઉન્ટ બનાવો",
+    admin_h:"એડમિન એક્સેસ", admin_sub:"સાઈન-અપ અને હેલ્પ રિક્વેસ્ટ જોવા માટે એડમિન એકાઉન્ટથી લોગિન કરો.",
+    admin_user_lbl:"એડમિન યુઝરનેમ", admin_pass_lbl:"એડમિન પાસવર્ડ", admin_enter:"પ્રવેશ કરો",
+    admin_users_h:"સાઈન-અપ થયેલ ઉમેદવારો", admin_help_h:"હેલ્પ રિક્વેસ્ટ",
+    col_name:"નામ", col_when:"જોડાયા", col_topic:"વિષય", col_msg:"સંદેશ",
+    unlock:"ચેપ્ટર્સ ખુલશે", locked_notes:"સંપૂર્ણ નોટ્સ માટે લોગિન કરો"
+  }
+};
+let currentLang = 'en';
+function setLang(l){
+  currentLang = l;
+  document.getElementById('lang-en').classList.toggle('active', l==='en');
+  document.getElementById('lang-gu').classList.toggle('active', l==='gu');
+  document.body.classList.toggle('lang-gu', l==='gu');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(dict[l][key]!==undefined) el.innerHTML = dict[l][key];
+  });
+  renderSubjects();
+  renderPyq(currentPyqTab);
+}
+
+/* ---------------- Subject / chapter data ---------------- */
+const subjects = {
+  physics: {
+    color:'physics',
+    chapters:[
+      {name:'Kinematics', src:'HCV'},
+      {name:'Laws of Motion', src:'HCV'},
+      {name:'Work, Energy & Power', src:'HCV'},
+      {name:'Rotational Motion', src:'HCV'},
+      {name:'Gravitation', src:'HCV'},
+      {name:'Thermodynamics', src:'HCV'},
+      {name:'Electrostatics', src:'HCV'},
+      {name:'Current Electricity', src:'HCV'},
+      {name:'Magnetism & EMI', src:'HCV'},
+      {name:'Optics', src:'HCV'},
+      {name:'Modern Physics', src:'HCV'},
+    ]
+  },
+  chemistry: {
+    color:'chem',
+    chapters:[
+      {name:'Mole Concept', src:'MS Chauhan'},
+      {name:'Atomic Structure', src:'MS Chauhan'},
+      {name:'Chemical Bonding', src:'MS Chauhan'},
+      {name:'Thermodynamics', src:'MS Chauhan'},
+      {name:'Equilibrium', src:'MS Chauhan'},
+      {name:'Electrochemistry', src:'MS Chauhan'},
+      {name:'GOC (Organic Basics)', src:'MS Chauhan'},
+      {name:'Hydrocarbons', src:'MS Chauhan'},
+      {name:'Aldehydes, Ketones & Acids', src:'MS Chauhan'},
+      {name:'Periodic Table & p-Block', src:'MS Chauhan'},
+      {name:'Coordination Compounds', src:'MS Chauhan'},
+    ]
+  },
+  maths: {
+    color:'maths',
+    chapters:[
+      {name:'Quadratic Equations', src:'Anand Sir'},
+      {name:'Sequences & Series', src:'Anand Sir'},
+      {name:'Permutations & Combinations', src:'Anand Sir'},
+      {name:'Binomial Theorem', src:'Anand Sir'},
+      {name:'Trigonometry', src:'Anand Sir'},
+      {name:'Straight Lines & Circles', src:'Anand Sir'},
+      {name:'Conic Sections', src:'Anand Sir'},
+      {name:'Limits & Continuity', src:'Anand Sir'},
+      {name:'Differentiation', src:'Anand Sir'},
+      {name:'Integration', src:'Anand Sir'},
+      {name:'Vectors & 3D Geometry', src:'Anand Sir'},
+      {name:'Probability', src:'Anand Sir'},
+    ]
+  }
+};
+
+function renderSubjects(){
+  const map = { physics:'physics-grid', chemistry:'chem-grid', maths:'maths-grid' };
+  const labelUnlock = dict[currentLang].unlock;
+  const labelLocked = dict[currentLang].locked_notes;
+  Object.keys(map).forEach(subj=>{
+    const data = subjects[subj];
+    const el = document.getElementById(map[subj]);
+    const cardClass = data.color === 'chem' ? 'chem' : data.color;
+    let visible = data.chapters.slice(0,6);
+    let li = visible.map(c=>`<li><span>${c.name}</span><span class="src">${c.src}</span></li>`).join('');
+    el.innerHTML = `
+      <div class="subj-card ${cardClass}">
+        <div class="bar"></div>
+        <h3>${cap(subj)}</h3>
+        <p class="desc">${data.chapters.length} ${labelUnlock}</p>
+        <ul class="chapter-list">${li}</ul>
+        <div class="cta-row">
+          <button class="btn btn-sm btn-primary" onclick="openAuth('signup')">${labelLocked}</button>
+        </div>
+      </div>`;
+  });
+}
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+/* ---------------- OMR decorative mini grid ---------------- */
+function renderOmrMini(){
+  const el = document.getElementById('omr-mini');
+  let html = '';
+  for(let r=0;r<5;r++){
+    html += '<div class="row">';
+    for(let c=0;c<5;c++){
+      const filled = Math.random() > 0.7 ? 'filled':'';
+      html += `<div class="bub ${filled}"></div>`;
+    }
+    html += '</div>';
+  }
+  el.innerHTML = html;
+}
+
+/* ---------------- PYQ mock data ---------------- */
+const pyq = {
+  jee: [
+    {yr:'JEE Main 2025', title:'Rotational Motion — Numerical', sub:'Physics'},
+    {yr:'JEE Main 2024', title:'Aldehydes & Ketones — MCQ set', sub:'Chemistry'},
+    {yr:'JEE Advanced 2024', title:'Definite Integration', sub:'Maths'},
+    {yr:'JEE Main 2023', title:'Electrostatics — Assertion/Reason', sub:'Physics'},
+    {yr:'JEE Advanced 2023', title:'Coordination Compounds', sub:'Chemistry'},
+    {yr:'JEE Main 2022', title:'Vectors & 3D — Full section', sub:'Maths'},
+  ],
+  board: [
+    {yr:'CBSE 2025', title:'Current Electricity — Long Answer', sub:'Physics'},
+    {yr:'GSEB 2025', title:'Chemical Bonding — Short Answer', sub:'Chemistry'},
+    {yr:'CBSE 2024', title:'Probability — Case Study', sub:'Maths'},
+    {yr:'GSEB 2024', title:'Optics — Numericals', sub:'Physics'},
+    {yr:'CBSE 2023', title:'GOC — Reasoning Based', sub:'Chemistry'},
+    {yr:'GSEB 2023', title:'Trigonometric Identities', sub:'Maths'},
+  ]
+};
+let currentPyqTab = 'jee';
+function setPyqTab(tab, btn){
+  currentPyqTab = tab;
+  document.querySelectorAll('.pyq-tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPyq(tab);
+}
+function renderPyq(tab){
+  const el = document.getElementById('pyq-list');
+  el.innerHTML = pyq[tab].map(p=>`
+    <div class="pyq-item">
+      <div class="yr">${p.yr}</div>
+      <h5>${p.title}</h5>
+      <p>${p.sub}</p>
+    </div>`).join('');
+}
+
+/* ---------------- Storage wrapper (resilient) ---------------- */
+// Prefers the platform's persistent storage (window.storage). If that API
+// isn't available in this context — e.g. the file is opened directly in a
+// browser instead of viewed inside the Claude artifact panel — falls back
+// to the browser's own localStorage so the site still works end to end.
+function hasCloudStorage(){
+  return typeof window.storage !== 'undefined' && window.storage && typeof window.storage.get === 'function' && typeof window.storage.set === 'function';
+}
+async function vGet(key, shared){
+  if(hasCloudStorage()){
+    try{
+      const r = await window.storage.get(key, shared);
+      return r || null;
+    }catch(e){
+      return null; // treat "not found" and transport errors the same way
+    }
+  }
+  try{
+    const raw = localStorage.getItem('vyntrax:' + (shared ? 'shared:' : 'local:') + key);
+    return raw !== null ? { key, value: raw, shared } : null;
+  }catch(e){
+    return null;
+  }
+}
+async function vSet(key, value, shared){
+  if(hasCloudStorage()){
+    try{
+      const r = await window.storage.set(key, value, shared);
+      return r || null;
+    }catch(e){
+      console.error('Vyntrax storage set failed', key, e);
+      return null;
+    }
+  }
+  try{
+    localStorage.setItem('vyntrax:' + (shared ? 'shared:' : 'local:') + key, value);
+    return { key, value, shared };
+  }catch(e){
+    console.error('Vyntrax local fallback storage failed', key, e);
+    return null;
+  }
+}
+
+/* ---------------- Auth (persisted via storage, shared so admin can view) ---------------- */
+let currentUser = null;
+
+// Storage keys can't contain whitespace, slashes, or quotes — this turns any
+// typed name into a safe, unique key while the original name stays in the record.
+function slugify(name){
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/['"]/g, '')
+    .replace(/[\/\\]/g, '-')
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9\-_]/g, '');
+}
+
+function openAuth(mode){
+  document.getElementById('auth-overlay').classList.add('open');
+  if(mode==='login') showLogin(); else showSignup();
+}
+function closeAuth(){ document.getElementById('auth-overlay').classList.remove('open'); clearAuthMsgs(); }
+function showLogin(){
+  document.getElementById('auth-signup').classList.add('hide');
+  document.getElementById('auth-login').classList.remove('hide');
+}
+function showSignup(){
+  document.getElementById('auth-login').classList.add('hide');
+  document.getElementById('auth-signup').classList.remove('hide');
+}
+function clearAuthMsgs(){
+  ['signup-msg','login-msg'].forEach(id=>{const e=document.getElementById(id); e.className='form-msg'; e.textContent='';});
+}
+function setMsg(id, text, type){
+  const e = document.getElementById(id);
+  e.textContent = text; e.className = 'form-msg ' + type;
+}
+
+async function doSignup(){
+  const name = document.getElementById('signup-name').value.trim();
+  const pass = document.getElementById('signup-pass').value;
+  if(!name || !pass){ setMsg('signup-msg','Please enter a name and password.','error'); return; }
+  const slug = slugify(name);
+  if(!slug){ setMsg('signup-msg','Please use a name with at least one letter or number.','error'); return; }
+  const key = 'user:' + slug;
+  const btn = document.querySelector('#auth-signup .btn-primary');
+  btn.disabled = true;
+  try{
+    const existing = await vGet(key, true);
+    if(existing){ setMsg('signup-msg','That name is already taken. Try logging in instead.','error'); btn.disabled = false; return; }
+    const record = { name, password: pass, joined: new Date().toISOString() };
+    const saved = await vSet(key, JSON.stringify(record), true);
+    if(!saved){ setMsg('signup-msg','Could not save your account right now. Please try again in a moment.','error'); btn.disabled = false; return; }
+    // maintain an index for admin listing
+    let idx = [];
+    const idxRes = await vGet('users:index', true);
+    if(idxRes){ try{ idx = JSON.parse(idxRes.value) || []; }catch(e){ idx = []; } }
+    if(!idx.includes(slug)) idx.push(slug);
+    await vSet('users:index', JSON.stringify(idx), true);
+    setMsg('signup-msg','Account created!','ok');
+    localSessionSet(name);
+    setTimeout(()=>{ closeAuth(); renderAuthArea(); showToast('Welcome to Vyntrax, ' + name + '!'); btn.disabled = false; }, 500);
+  }catch(err){
+    console.error('Vyntrax signup error', err);
+    setMsg('signup-msg','Something went wrong creating your account. Please try again.','error');
+    btn.disabled = false;
+  }
+}
+
+async function doLogin(){
+  const name = document.getElementById('login-name').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  if(!name || !pass){ setMsg('login-msg','Please enter your name and password.','error'); return; }
+  const slug = slugify(name);
+  const key = 'user:' + slug;
+  const btn = document.querySelector('#auth-login .btn-primary');
+  btn.disabled = true;
+  try{
+    const existing = await vGet(key, true);
+    if(!existing){ setMsg('login-msg','No account found with that name.','error'); btn.disabled = false; return; }
+    const rec = JSON.parse(existing.value);
+    if(rec.password !== pass){ setMsg('login-msg','Incorrect password.','error'); btn.disabled = false; return; }
+    localSessionSet(rec.name);
+    setMsg('login-msg','Logged in!','ok');
+    setTimeout(()=>{ closeAuth(); renderAuthArea(); showToast('Welcome back, ' + rec.name + '!'); btn.disabled = false; }, 400);
+  }catch(err){
+    console.error('Vyntrax login error', err);
+    setMsg('login-msg','Something went wrong logging in. Please try again.','error');
+    btn.disabled = false;
+  }
+}
+
+function localSessionSet(name){ currentUser = name; sessionStorageFallback = name; }
+let sessionStorageFallback = null;
+
+function logout(){
+  currentUser = null;
+  renderAuthArea();
+  showToast('Logged out.');
+}
+
+function renderAuthArea(){
+  const el = document.getElementById('auth-area');
+  if(currentUser){
+    el.innerHTML = `
+      <div class="userchip"><b>${currentUser}</b>
+        <button class="btn btn-sm btn-ghost" onclick="logout()">Logout</button>
+      </div>`;
+  } else {
+    el.innerHTML = `
+      <button class="btn btn-sm btn-ghost" onclick="openAuth('login')">Log in</button>
+      <button class="btn btn-sm btn-primary" onclick="openAuth('signup')">Sign up</button>`;
+  }
+}
+
+function startTest(){
+  if(!currentUser){ openAuth('login'); showToast('Sign in to start your adaptive test.'); return; }
+  showToast('Adaptive test engine launching for ' + currentUser + ' — question bank build in progress.');
+}
+
+/* ---------------- Help / contact ---------------- */
+async function submitHelp(){
+  const name = document.getElementById('help-name').value.trim();
+  const topic = document.getElementById('help-topic').value.trim();
+  const msg = document.getElementById('help-msg').value.trim();
+  const msgEl = document.getElementById('help-form-msg');
+  if(!name || !msg){ msgEl.textContent='Please add your name and a message.'; msgEl.className='form-msg error'; return; }
+  try{
+    const id = 'help:' + Date.now();
+    await vSet(id, JSON.stringify({name, topic, msg, ts:new Date().toISOString()}), true);
+    let idx = [];
+    const idxRes = await vGet('help:index', true);
+    if(idxRes){ try{ idx = JSON.parse(idxRes.value) || []; }catch(e){ idx = []; } }
+    idx.push(id);
+    await vSet('help:index', JSON.stringify(idx), true);
+    msgEl.textContent='Message sent — the Vyntrax team will follow up.'; msgEl.className='form-msg ok';
+    document.getElementById('help-name').value='';
+    document.getElementById('help-topic').value='';
+    document.getElementById('help-msg').value='';
+  }catch(err){
+    msgEl.textContent='Could not send right now. Please try again.'; msgEl.className='form-msg error';
+  }
+}
+
+/* ---------------- Admin ---------------- */
+function openAdmin(e){ e.preventDefault(); document.getElementById('admin-overlay').classList.add('open'); }
+const ADMIN_USERNAME = 'parikghost4518';
+const ADMIN_PASSWORD = '123gg@112208';
+
+function closeAdmin(){
+  document.getElementById('admin-overlay').classList.remove('open');
+  document.getElementById('admin-gate').classList.remove('hide');
+  document.getElementById('admin-view').classList.add('hide');
+  document.getElementById('admin-user').value='';
+  document.getElementById('admin-pass').value='';
+  const m = document.getElementById('admin-msg'); m.textContent=''; m.className='form-msg';
+}
+async function checkAdmin(){
+  const user = document.getElementById('admin-user').value.trim();
+  const pass = document.getElementById('admin-pass').value;
+  if(user !== ADMIN_USERNAME || pass !== ADMIN_PASSWORD){
+    const m = document.getElementById('admin-msg'); m.textContent='Incorrect username or password.'; m.className='form-msg error';
+    return;
+  }
+  document.getElementById('admin-gate').classList.add('hide');
+  document.getElementById('admin-view').classList.remove('hide');
+  await loadAdminData();
+}
+async function loadAdminData(){
+  const usersBody = document.querySelector('#admin-users-table tbody');
+  const helpBody = document.querySelector('#admin-help-table tbody');
+  usersBody.innerHTML = '<tr><td colspan="2">Loading…</td></tr>';
+  helpBody.innerHTML = '<tr><td colspan="3">Loading…</td></tr>';
+  try{
+    let idx = [];
+    const idxRes = await vGet('users:index', true);
+    if(idxRes){ try{ idx = JSON.parse(idxRes.value) || []; }catch(e){ idx = []; } }
+    if(idx.length === 0){
+      usersBody.innerHTML = '<tr><td colspan="2">No signups yet.</td></tr>';
+    } else {
+      let rows = '';
+      for(const slug of idx){
+        const r = await vGet('user:' + slug, true);
+        if(r){
+          try{
+            const rec = JSON.parse(r.value);
+            rows += `<tr><td>${rec.name}</td><td>${new Date(rec.joined).toLocaleString()}</td></tr>`;
+          }catch(e){}
+        }
+      }
+      usersBody.innerHTML = rows || '<tr><td colspan="2">No signups yet.</td></tr>';
+    }
+  }catch(e){
+    usersBody.innerHTML = '<tr><td colspan="2">Could not load signups.</td></tr>';
+  }
+  try{
+    let hidx = [];
+    const hidxRes = await vGet('help:index', true);
+    if(hidxRes){ try{ hidx = JSON.parse(hidxRes.value) || []; }catch(e){ hidx = []; } }
+    if(hidx.length === 0){
+      helpBody.innerHTML = '<tr><td colspan="3">No help requests yet.</td></tr>';
+    } else {
+      let rows = '';
+      for(const id of hidx.slice().reverse()){
+        const r = await vGet(id, true);
+        if(r){
+          try{
+            const rec = JSON.parse(r.value);
+            rows += `<tr><td>${rec.name}</td><td>${rec.topic||'—'}</td><td>${rec.msg}</td></tr>`;
+          }catch(e){}
+        }
+      }
+      helpBody.innerHTML = rows || '<tr><td colspan="3">No help requests yet.</td></tr>';
+    }
+  }catch(e){
+    helpBody.innerHTML = '<tr><td colspan="3">Could not load help requests.</td></tr>';
+  }
+}
+
+/* ---------------- Toast ---------------- */
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3200);
+}
+
+/* ---------------- Init ---------------- */
+document.getElementById('year').textContent = new Date().getFullYear();
+renderAuthArea();
+renderSubjects();
+renderOmrMini();
+renderPyq('jee');
+</script>
+
+</body>
+</html>
